@@ -1,0 +1,13 @@
+<Transfer>
+    <from>
+        <Card>
+            <name>card1</name>
+        </Card>
+    </from>
+    <to>
+        <Card>
+            <name>card2</name>
+        </Card>
+    </to>
+    <amount>10000.00</amount>
+</Transfer>
