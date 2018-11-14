@@ -1,7 +1,6 @@
 package ru.sbt.vng.tws.dao;
 
 import org.springframework.stereotype.Repository;
-import ru.sbt.vng.tws.dto.TransferDTO;
 import ru.sbt.vng.tws.model.Card;
 import ru.sbt.vng.tws.model.Transfer;
 
@@ -48,7 +47,7 @@ public class TransferDAO {
     public List<Transfer> getTransfersBySenderName(String senderName){
         return new ArrayList<Transfer>(
                 transferMap.values().stream()
-                .filter(transfer -> transfer.getFrom().getName().equals(senderName))
+                .filter(transfer -> transfer.getFrom().getCardId().equals(senderName))
                 .collect(Collectors.toList())
         );
     }
@@ -56,7 +55,7 @@ public class TransferDAO {
     public List<Transfer> getTransfersByRecieverName(String recieverName){
         return new ArrayList<Transfer>(
                 transferMap.values().stream()
-                .filter(transfer -> transfer.getTo().getName().equals(recieverName))
+                .filter(transfer -> transfer.getTo().getCardId().equals(recieverName))
                 .collect(Collectors.toList())
         );
     }

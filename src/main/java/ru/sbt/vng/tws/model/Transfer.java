@@ -1,7 +1,5 @@
 package ru.sbt.vng.tws.model;
 
-import javafx.util.Builder;
-
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -81,8 +79,8 @@ public class Transfer{
     public String toString() {
         return "Transfer{" +
                 "id=" + id +
-                ", from=" + from.getName() +
-                ", to=" + to.getName() +
+                ", from=" + from.getCardId() +
+                ", to=" + to.getCardId() +
                 ", amount=" + amount.toString() +
                 ", approved=" + approved +
                 ", date=" + date.toString() +

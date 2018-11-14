@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import ru.sbt.vng.tws.model.Transfer;
+import ru.sbt.vng.tws.service.TransferService;
 
 @RestController
 public class MainRESTController {
@@ -25,11 +26,7 @@ public class MainRESTController {
     private EmployeeDAO employeeDAO;
 
     @Autowired
-    private CardDAO cardDAO;
-
-    @Autowired
-    private TransferDAO transferDAO;
-
+    private TransferService transferService;
 
     @RequestMapping("/")
     @ResponseBody
@@ -44,8 +41,7 @@ public class MainRESTController {
             produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
     @ResponseBody
     public List<Card> getCards() {
-        List<Card> list = cardDAO.getAllCards();
-        return list;
+        return transferService.getCards();
     }
 
     // URL:
@@ -55,8 +51,7 @@ public class MainRESTController {
             produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
     @ResponseBody
     public List<Transfer> getTransfers() {
-        List<Transfer> list = transferDAO.getAllTransfers();
-        return list;
+        return transferService.getTransfers();
     }
 
     // URL:
@@ -66,7 +61,7 @@ public class MainRESTController {
             produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
     @ResponseBody
     public List<Transfer> getTransfersBySenderName(@PathVariable("cardFrom") String cardSender) {
-        return transferDAO.getTransfersBySenderName(cardSender);
+        return transferService.getTransfersBySenderName(cardSender);
     }
 
     // URL:
@@ -76,7 +71,7 @@ public class MainRESTController {
             produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
     @ResponseBody
     public List<Transfer> getTransfersByrecieverName(@PathVariable("cardTo") String cardReciever) {
-        return transferDAO.getTransfersByRecieverName(cardReciever);
+        return transferService.getTransfersByRecieverName(cardReciever);
     }
 
 
@@ -87,8 +82,7 @@ public class MainRESTController {
             produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
     @ResponseBody
     public Transfer addTransfer(@RequestBody TransferDTO transferDto) {
-        return transferDAO.addTransfer(cardDAO.getCard(transferDto.getFrom()),
-                cardDAO.getCard(transferDto.getTo()),transferDto.getAmount().toString());
+        return transferService.addTransfer(transferDto);
     }
 
 
