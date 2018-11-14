@@ -1,12 +1,12 @@
 <Transfer>
     <from>
         <Card>
-            <name>card1</name>
+            <cardId>card1</cardId>
         </Card>
     </from>
     <to>
         <Card>
-            <name>card2</name>
+            <cardId>card2</cardId>
         </Card>
     </to>
     <amount>10000.00</amount>

@@ -3,19 +3,22 @@ package ru.sbt.vng.tws.model;
 import java.math.BigDecimal;
 
 public class Card {
-    private String name;
+
+    private String cardId;
     private BigDecimal balance;
+    //there is may be add others parameters of card
+
 
     public Card() {
     }
 
-    public Card(String name, BigDecimal balance) {
-        this.name = name;
+    public Card(String cardId, BigDecimal balance) {
+        this.cardId = cardId;
         this.balance = balance;
     }
 
-    public String getName() {
-        return name;
+    public String getCardId() {
+        return cardId;
     }
 
     BigDecimal getBalance() {
@@ -29,7 +32,7 @@ public class Card {
     @Override
     public String toString() {
         return "Card{" +
-                "name='" + name + '\'' +
+                "cardId='" + cardId + '\'' +
                 ", balance=" + balance.toString() +
                 '}';
     }

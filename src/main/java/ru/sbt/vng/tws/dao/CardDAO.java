@@ -18,9 +18,9 @@ public class CardDAO {
         Card card2 = new Card("card2", new BigDecimal("15000.00"));
         Card card3 = new Card("card3", new BigDecimal("1000.00"));
 
-        cardMap.put(card1.getName(), card1);
-        cardMap.put(card2.getName(), card2);
-        cardMap.put(card3.getName(), card3);
+        cardMap.put(card1.getCardId(), card1);
+        cardMap.put(card2.getCardId(), card2);
+        cardMap.put(card3.getCardId(), card3);
     }
 
     public Card getCard(String cardName) {
@@ -34,7 +34,7 @@ public class CardDAO {
     }
 
     public Card updateCard(Card card) {
-        cardMap.put(card.getName(), card);
+        cardMap.put(card.getCardId(), card);
         return card;
     }
 
