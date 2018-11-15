@@ -2,52 +2,64 @@ package ru.sbt.vng.tws.dao;
 
 import java.util.*;
 import java.math.BigDecimal;
-import ru.sbt.vng.tws.model.Card;
 import org.springframework.stereotype.Repository;
+
 
 @Repository
 public class CardDAO {
-    private static final Map<String, Card> cardMap = new HashMap<String, Card>();
+    private static final Map<String, BigDecimal> cardMap = new HashMap<>();
 
     static {
         initCards();
     }
 
     private static void initCards() {
-        Card card1 = new Card("card1", new BigDecimal("20000.00"));
-        Card card2 = new Card("card2", new BigDecimal("15000.00"));
-        Card card3 = new Card("card3", new BigDecimal("1000.00"));
-
-        cardMap.put(card1.getCardId(), card1);
-        cardMap.put(card2.getCardId(), card2);
-        cardMap.put(card3.getCardId(), card3);
+        cardMap.put("card1", new BigDecimal("20000.00"));
+        cardMap.put("card2", new BigDecimal("20000.00"));
+        cardMap.put("card3", new BigDecimal("20000.00"));
     }
 
-    public Card getCard(String cardName) {
-        return cardMap.get(cardName);
+    public BigDecimal getBalance(String cardId) {
+        if(cardMap.containsKey(cardId)){
+            return cardMap.get(cardId);
+        }
+        else{
+            throw new IllegalArgumentException("Illegal cardId " + cardId);
+        }
     }
 
-    public Card addCard(String cardName, String amount) {
-        Card currentCard = new Card(cardName, new BigDecimal(amount));
-        cardMap.put(cardName, currentCard);
-        return currentCard;
+    public String addCard(String cardId, String amount) {
+        cardMap.put(cardId, new BigDecimal(amount));
+        return cardId;
     }
 
-    public Card updateCard(Card card) {
-        cardMap.put(card.getCardId(), card);
-        return card;
+    public String updateCard(String cardId, BigDecimal amount) {
+        if(cardMap.containsKey(cardId)){
+            cardMap.put(cardId, amount);
+        }
+        else{
+            throw new IllegalArgumentException("Illegal cardId: " + cardId);
+        }
+        return cardId;
     }
 
-    public void deleteCard(String cardName) {
-        cardMap.remove(cardName);
+    public void deleteCard(String cardId) {
+        if(cardMap.containsKey(cardId)){
+            cardMap.remove(cardId);
+        }
+        else{
+            throw new IllegalArgumentException("Illegal cardId " + cardId);
+        }
     }
 
-    public List<Card> getAllCards() {
+    public Map<String, BigDecimal> getAllCards() {
 /*        Collection<Card> c = cardMap.values();
         List<Card> list = new ArrayList<Card>();
         list.addAll(c);
         return list;*/
-        return new ArrayList<>(cardMap.values());
+        Map<String, BigDecimal> cM = new HashMap<>();
+        cM.putAll(cardMap);
+        return cardMap;
     }
 
 }

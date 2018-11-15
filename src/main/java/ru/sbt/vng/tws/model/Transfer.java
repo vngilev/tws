@@ -5,8 +5,8 @@ import java.util.Date;
 
 public class Transfer{
     private int id;
-    private Card from;
-    private Card to;
+    private String from;
+    private String to;
     private BigDecimal amount;
     private Boolean approved;
     private Date date;
@@ -14,17 +14,14 @@ public class Transfer{
     public Transfer() {
     }
 
-    public Transfer(Card from, Card to, BigDecimal amount) {
+    public Transfer(String from, String to, BigDecimal amount, Boolean approved) {
         this.id = this.hashCode();
         this.from = from;
         this.to = to;
         this.amount = amount;
         this.date = new Date();
-        if (from.getBalance().compareTo(amount) != -1) {
-            from.setBalance(from.getBalance().add(amount.negate()));
-            to.setBalance(to.getBalance().add(amount));
-            this.approved = true;
-        } else this.approved = false;
+        this.approved = approved;
+
     }
 
     public int getId() {
@@ -35,19 +32,19 @@ public class Transfer{
         this.id = id;
     }
 
-    public Card getFrom() {
+    public String getFrom() {
         return from;
     }
 
-    public void setFrom(Card from) {
+    public void setFrom(String from) {
         this.from = from;
     }
 
-    public Card getTo() {
+    public String getTo() {
         return to;
     }
 
-    public void setTo(Card to) {
+    public void setTo(String to) {
         this.to = to;
     }
 
@@ -79,8 +76,8 @@ public class Transfer{
     public String toString() {
         return "Transfer{" +
                 "id=" + id +
-                ", from=" + from.getCardId() +
-                ", to=" + to.getCardId() +
+                ", from=" + from +
+                ", to=" + to +
                 ", amount=" + amount.toString() +
                 ", approved=" + approved +
                 ", date=" + date.toString() +

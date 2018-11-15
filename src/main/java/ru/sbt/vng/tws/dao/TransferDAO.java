@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 @Repository
 public class TransferDAO {
-    private static final Map<Integer, Transfer> transferMap = new HashMap<Integer, Transfer>();
+    private static final Map<Integer, Transfer> transferMap = new HashMap<>();
 
     static {
         initTransfers();
@@ -24,17 +24,13 @@ public class TransferDAO {
         return transferMap.get(id);
     }
 
-    public Transfer addTransfer(Card from, Card to, String amount) {
-        Transfer currentTransfer = new Transfer(from, to, new BigDecimal(amount));
+    public Transfer addTransfer(String from, String to, BigDecimal amount, Boolean approved) {
+        Transfer currentTransfer = new Transfer(from, to, amount, approved);
         transferMap.put(currentTransfer.getId(), currentTransfer);
         return currentTransfer;
     }
 
     public List<Transfer> getAllTransfers() {
-/*        Collection<Transfer> c = transferMap.values();
-        List<Transfer> list = new ArrayList<Transfer>();
-        list.addAll(c);
-        return list;*/
         return new ArrayList<>(transferMap.values());
     }
 
@@ -44,18 +40,18 @@ public class TransferDAO {
                 .collect(Collectors.toList());
     }
 
-    public List<Transfer> getTransfersBySenderName(String senderName){
+    public List<Transfer> getTransfersByCardSender(String cardSender){
         return new ArrayList<Transfer>(
                 transferMap.values().stream()
-                .filter(transfer -> transfer.getFrom().getCardId().equals(senderName))
+                .filter(transfer -> transfer.getFrom().equals(cardSender))
                 .collect(Collectors.toList())
         );
     }
 
-    public List<Transfer> getTransfersByRecieverName(String recieverName){
+    public List<Transfer> getTransfersByCardReceiver(String cardReceiver){
         return new ArrayList<Transfer>(
                 transferMap.values().stream()
-                .filter(transfer -> transfer.getTo().getCardId().equals(recieverName))
+                .filter(transfer -> transfer.getTo().equals(cardReceiver))
                 .collect(Collectors.toList())
         );
     }

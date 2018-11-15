@@ -2,6 +2,7 @@ package ru.sbt.vng.tws.model;
 
 import java.math.BigDecimal;
 
+@Deprecated
 public class Card {
 
     private String cardId;
